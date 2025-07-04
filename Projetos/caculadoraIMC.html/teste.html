@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projetos Gabriel</title>
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    font-family: Arial, Helvetica, sans-serif;
+}
+header{
+    background-color: black;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    font-size: 1.3rem;
+}
+#menuBtn{
+    font-size: 24px;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+.sidebar{
+    position: fixed;
+    top: 0;
+    width: 250px;;
+    height: 100%;
+    background-color: #222;
+    color: white;
+    padding: 20px;
+    transition: left 0.3s ease;
+    z-index: 1002;
+}
+
+.sidebar.open{
+    left: 0;
+}
+
+.sidebar ul{
+    list-style: none;
+    padding-left: 0;
+}
+.sidebar ul li{
+    margin: 10;
+    color: #ccc;
+}
+
+.sidebar h2{
+    margin-top: 40px;
+    margin-bottom: 10px;
+}
+
+.close-btn{
+    font-size: 24px;
+    color: white;
+    border: none;
+    background: none;
+    cursor: pointer;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+
+
+</style>
+
+
+</head>
+
+
+<body>
+    <header>
+        <button id="menuBtn">=</button>
+        <span>Projetos Gabriel</span>
+    </header>
+    <div id="sidebar" class="sidebar">
+        <button class="close-btn" id="closeBtn">X</button>
+        <h2>Meus Projetos</h2>
+        <ul>
+            <li>IMC (em breve)...</li>
+            <li>IMC (em breve)...</li>
+            <li>IMC (em breve)...</li>
+        </ul>
+    </div>
+    <div id="overlay" class="overlay"></div>
+    <main>
+        <h1>Bem-vindo!</h1>
+    <p>Este será o site com meus projetos futuros.</p><h1>Bem-vindo!</h1>
+
+    </main>
+</body>
+</html>
