@@ -1,0 +1,13 @@
+.overlay{
+    position: fixed;
+    background: rgba(77, 96, 81, 0.5);
+    width: 100vw;
+    height: 100vh;
+    left: 0;
+    top: 0;
+    display: none;
+    z-index: 1001;
+}
+.overlay.active{
+    display: block;
+}
