@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projetos Gabriel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    /* font-family: Arial, Helvetica, sans-serif; */
+     font-family: 'Poppins', sans-serif;
+}
+header{
+    background-color: black;
+    color: white;
+    display: flex;
+    align-items: center;
+    font-size: 1.4em;
+    padding: 18px 20px;
+    gap: 15px;
+    position: static;
+    top: 0;
+    z-index: 1000;
+    border-bottom: solid 3px rgb(89, 237, 215);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3)
+}
+#menuBtn{
+    padding: 0px 10px;
+    border-radius: 4px;
+    font-size: 36px;
+    background: none;
+    border: none;
+    color: rgb(89, 237, 215);
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+#menuBtn:hover{
+    transform: scale(1.3);
+    padding: 0px 20px 0px 10px;
+    text-shadow: 1px 1px 6px rgb(89, 237, 215)  
+}
+
+.sidebar{
+    position: fixed;
+    top: 0;
+    width: 250px;;
+    height: 100%;
+    background-color: #222;
+    color: white;
+    padding: 20px;
+    left: -250px;
+    transition: left 0.3s ease;
+    z-index: 1002;
+    
+}
+
+.sidebar.open{
+    left: 0;
+    box-shadow: 20px 0 100px rgb(89, 237, 215);
+    border-right: solid 2px rgb(89, 237, 215);
+    border-top: solid 2px rgb(89, 237, 215);
+   }
+
+.sidebar ul{
+    list-style: none;
+    padding-left: 0;
+}
+.sidebar ul li{
+    margin: 10px 0;
+    color: #ccc;
+}
+.sidebar ul li:hover{
+    color: rgb(89, 237, 215);
+    text-shadow: 10px 1px 6px rgb(89, 237, 215) ;
+    cursor: pointer;
+    transform: translateX(5px);
+    transition: 0.2s ease;
+}
+
+
+.sidebar h2{
+    margin-top: 40px;
+    margin-bottom: 10px;
+}
+
+.fechar-btn{
+    font-size: 24px;
+    color: white;
+    border: none;
+    background: none;
+    cursor: pointer;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    transition: 0.2s ease;
+}
+.fechar-btn:hover{
+    transform: scale(1.2);
+    text-shadow: 1px 1px 6px rgb(89, 237, 215) ;
+    color:rgb(89, 237, 215) ;
+}
+
+.overlay{
+    position: fixed;
+    background: rgba(77, 96, 81, 0.5);
+    width: 100vw;
+    height: 100vh;
+    left: 0;
+    top: 0;
+    display: none;
+    z-index: 1001;
+}
+.overlay.active{
+    display: block;
+}
+
+main {
+    padding: 40px 60px;
+    height: 100vh;
+}
+
+
+footer {
+  background-color: #111;
+  color: #ccc;
+  padding: 40px 20px 20px;
+  font-size: 0.95rem;
+  border-top: 3px solid rgb(89, 237, 215);
+}
+
+.sidebar-avatar {
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+
+.sidebar-avatar img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 2px solid rgb(89, 237, 215);
+  box-shadow: 0 0 10px rgba(89, 237, 215, 0.5);
+  object-fit: cover;
+}
+
+.sidebar-avatar h2 {
+  margin-top: 10px;
+  font-size: 1.1rem;
+  color: rgb(89, 237, 215);
+}
+
+</style>
+
+
+</head>
+
+
+<body>
+
+
+    <div id="sidebar" class="sidebar">
+        <div class="sidebar-avatar">
+            <img src="https://ui-avatars.com/api/?name=Gabriel&background=222&color=59edd7&size=100" alt="Avatar com G">
+            <h2>Gabriel</h2>
+        </div>
+
+        <button class="fechar-btn" id="fecharBtn">✕</button>
+
+        <h2>Meus Projetos</h2>
+
+        <ul>
+            <li>IMC (em breve)...</li>
+            <li>IMC (em breve)...</li>
+            <li>IMC (em breve)...</li>
+        </ul>
+    </div>
+
+
+    <div id="overlay" class="overlay"></div>
+
+    <header>
+        <button id="menuBtn">=</button>
+        <span> Projetos   Gabriel</span>
+    </header>
+    
+   
+    <main>
+        <h1>Bem-vindo!</h1>
+    <p>Este será o site com meus projetos futuros.</p><h1>Bem-vindo!</h1>
+
+    </main>
+
+
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-logo">Projetos Gabriel</div>
+            
+            <div class="footer-links">
+                <a href="#">Início</a>
+                <a href="#">Calculadoras</a>
+                <a href="#">Saúde</a>
+                <a href="#">Contato</a>
+            </div>
+
+            <div class="footer-copy">
+                &copy; 2025 Gabriel — Todos os direitos reservados
+            </div>
+        </div>
+    </footer>
+
+<script>
+    const overlay = document.getElementById("overlay"),
+    btnFechar = document.getElementById("fecharBtn"),
+    btnAbrir = document.getElementById("menuBtn"),
+    sidebar = document.getElementById("sidebar")
+
+    const abrirSidebar = function(){
+        sidebar.classList.add("open");
+        overlay.classList.add("active");
+    }
+
+    const fecharSidebar = function(){
+        sidebar.classList.remove("open")
+        overlay.classList.remove("active")
+    }
+
+    btnAbrir.addEventListener("click", abrirSidebar)
+    btnFechar.addEventListener("click", fecharSidebar)
+    overlay.addEventListener("click", fecharSidebar)
+
+
+</script>
+</body>
+</html>
