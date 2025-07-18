@@ -63,6 +63,7 @@
     right: 10px;
     top: 10px;
     transition: 0.2s ease;
+    padding: 5px;
 }
 .fechar-btn:hover{
     transform: scale(1.2);

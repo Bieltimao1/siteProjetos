@@ -7,15 +7,116 @@
     <title>Document</title>
 <style>
     main{
-        height: 100vh;;
+        height: auto;;
         display: flex;
         flex-direction: column;
         align-items: center;
         padding: 60px 40px;
         width: 50vw;
-        
+        margin: 0px 13% 100px 13%;
+       
     }
+    main h1{
+        margin: 30px 0;
+        font-size: 2rem;
+    }
+    #IMC{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 400px;
+        margin: 20px auto 50px auto;
+        padding: 20px;
+        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+    }  
+     #IMC h2{
+        margin-bottom: 25px;
+     }
+    
+     #resultados{
+        display: flex;
+        max-width: 600px;
+        flex-wrap: wrap;
+        margin: auto;
+        gap: 5px
+        ;
+    }
+   .resultadosIMC {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;   /* Centraliza verticalmente */
+    align-items: center;       /* Centraliza horizontalmente */
+    height: 150px;
+    width: 250px;
+    text-align: center;        /* Centraliza o texto */
+    margin: 0;
+    border-right:2px dotted black ;
+}
+.resultadosIMC p{
+    font-size: 0.95rem;
+}
+.resultadosIMC h1{
+    margin: 5px 0 0 0 ;
+}
 
+    input[type="number"] {
+  padding: 10px;
+  width: 100%;
+  margin: 8px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: var(--corPrincipalVerde, #59edd7);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 15px;
+  font-weight: bold;
+  transition: ease 0.2s;
+}
+
+button:hover {
+ transform: scale(1.05);
+  background-color: #3bc3b0;
+}
+button:active {
+  transform: scale(0.95);
+}
+.informacoes h2{
+    margin-bottom: 25px;
+}
+.informacoes> p{
+    margin-bottom: 15px;
+
+}
+.IMC-tabela{
+margin: 40px auto;;
+width: 100%;
+border-collapse:collapse ;
+}
+.IMC-tabela th, .IMC-tabela td {
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #ddd;
+}
+.IMC-tabela thead {
+  background-color: var(--corPrincipalVerde, #59edd7); /* usa var se quiser */
+  color: white;
+  font-weight: bold;
+}
+.IMC-tabela th:hover {
+  background-color: #3bc3b0;
+}
+.IMC-tabela tbody tr:hover {
+  background-color: #f9f9f9;
+}
 
 </style>
 </head>
@@ -25,21 +126,30 @@
 <div id="main-conteudo">
     <main>
         <section>
-            <h2>Calculadora IMC</h2>
-            <div class="calculadora" id="IMC"">
-                
+            <h1>Calculadora de IMC</h1>
+            <div class="calculadora" id="IMC">
+                <h2>Calcule seu IMC</h2>
                 <form id="imcForm">
-                    <label for="altura">Altura (m)</label><br>
-                    <input type="number" id="altura" placeholder="Digite sua altura (m)" required><br>
+                    <label for="altura">Altura (m)</label>
+                    <input type="number" id="altura" placeholder="Digite sua altura (m)" step="0.01" required>
 
                     <label for="peso">Peso (kg)</label><br>
-                    <input type="number" id="peso"  step="0.01" placeholder="Digite seu peso (kg)" required><br> 
+                    <input type="number" id="peso"  step="0.1" placeholder="Digite seu peso (kg)" required>
 
-                    <button type="submit">Calcular IMC</button>
+                    <button id="btnIMC" type="submit">Calcular IMC</button>
                 </form>
             </div>
-            <div class="resultado" id="imcResultado">
+            <div class="resultado" id="imcResultado" style="display: none;">
+                <h2>Resultado</h2>
+                <div id="resultados">
+                    <div id="resuIMC" class="resultadosIMC"><p></p><h1></h1></div>
+                    <div id="resuClass" class="resultadosIMC"><p></p></div>
+                    <div id="resuPeso" class="resultadosIMC"></div>
+                    <div id="resuIntervalo" class="resultadosIMC"></div>
 
+
+
+                </div>
             </div>
             <section class="informacoes" id="imcInformacoes">
 
@@ -49,32 +159,43 @@
                 dividindo o peso (em kg) pela altura ao quadrado (em m). O resultado é dado em kg/m2 e
                 pode ser interpretado de acordo com a seguinte tabela:</p>
                 
-                <table>
+                <table class="IMC-tabela">
                     <thead>
                         <tr>
-                            <th>Classificação
-
-                            </th>
+                            <th>IMC</th>
 
                         
-                            <th>IMC
+                            <th>Classificação</th>
 
-                            </th>
-                            <th>
-                                Obesidade grau
-                            </th>
+                       
+                             <th>Obesidade grau</th>
                         </tr>
                     </thead>
                     <tbody>
                     <tr>
-                        <td>Abaixo do peso</td>
-                        <td>Abaixo de 18,5</td>
+                        <td>Menor que 18,5</td>
+                        <td>Magreza</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>18,5 a 24,9</td>
+                        <td>Normal</td>
                         <td>0</td>
                     </tr>
                     <tr>
-                        <td>Peso normal</td>
-                        <td>18,5 a 24,9</td>
-                        <td>0</td>
+                        <td>25 a 29,9</td>
+                        <td>Sobrepeso</td>
+                        <td>I</td>
+                    </tr>
+                    <tr>
+                        <td>30 a 39,9</td>
+                        <td>Obesidade</td>
+                        <td>II</td>
+                    </tr>
+                    <tr>
+                        <td>Maior que 40</td>
+                        <td>Obesidade grave</td>
+                        <td>III</td>
                     </tr>
                     </tbody>
                 </table>
@@ -85,7 +206,32 @@
                 um indicador inicial e não como um diagnóstico definitivo. Para uma avaliação mais completa e 
                 individualizada, é recomendado consultar um médico ou um nutricionista.</p>
 
+                <h1>Perguntas frequentes sobre o IMC</h1>
 
+                <h2>Qual é o peso ideal para a minha altura?</h2>
+
+                <p>Não existe um peso ideal único para cada altura, pois o peso depende também de outros fatores,
+                como a idade, o sexo, a composição corporal e o nível de atividade física. No entanto, pode-se
+                usar o IMC como uma referência para saber se o peso está dentro de um intervalo considerado
+                saudável. De acordo com a OMS, o intervalo de IMC normal para adultos é entre 18,5 e 24,9 kg/m2.
+                Para saber qual é o intervalo de peso correspondente a esse IMC para cada altura, basta
+                multiplicar a altura ao quadrado pelo valor mínimo e máximo do IMC. Por exemplo, para
+                uma pessoa que mede 1,75 m, o intervalo de peso normal seria: (1,75 x 1,75) x 18,5 = 56,77 kg
+                e (1,75 x 1,75) x 24,9 = 76,31 kg.</p>
+                
+                <h2>O que fazer se o meu IMC estiver fora do normal?</h2>
+
+                <p>Se o seu IMC estiver abaixo de 18,5 kg/m2, isso pode indicar que você está com magreza, 
+                o que pode trazer riscos para a sua saúde, como anemia, osteoporose, infecções e fraqueza. 
+                Nesse caso, é importante procurar um médico ou um nutricionista para investigar as possíveis
+                causas da perda de peso e receber orientações para aumentar o seu consumo de calorias e 
+                nutrientes de forma saudável.</p>
+
+                <p>Se o seu IMC estiver acima de 24,9 kg/m2, isso pode indicar que você está com sobrepeso ou obesidade, 
+                o que também pode trazer riscos para a sua saúde, como diabetes, hipertensão, colesterol alto, doenças 
+                cardiovasculares e articulares. Nesse caso, é importante procurar um médico ou um nutricionista para 
+                receber orientações para reduzir o seu consumo de calorias e gorduras e aumentar o seu nível de atividade 
+                física de forma gradual e segura.</p>
 
             </section>
         </section>
@@ -131,6 +277,18 @@ window.addEventListener("DOMContentLoaded",() => {
             btnAbrir.addEventListener("click", abrirSidebar);
             btnFechar.addEventListener("click", fecharSidebar);
             overlay.addEventListener("click", fecharSidebar)
+
+            document.addEventListener("keydown", function(event){
+                if (event.key === "Escape"){
+                   if(sidebar.classList.contains("open")){
+                        btnFechar.click();
+                   }
+                   else{
+                        btnAbrir.click();
+                   }
+                }
+
+            })
         })
 
 
@@ -142,6 +300,96 @@ window.addEventListener("DOMContentLoaded",() => {
     
 })
 
+
+
+const preencherResultado = function(IMC, classificacao, pesoIdeal, intervaloPeso) {
+    document.getElementById("resuIMC").innerHTML = `<p>IMC</p> <h1>${IMC.toFixed(2)}kg/m²</h1>`;
+    document.getElementById("resuClass").innerHTML = `<p>Classificação</p> <h1>${classificacao}</h1>`;
+    document.getElementById("resuPeso").innerHTML = `<p>Peso ideal</p> <h1>${pesoIdeal.toFixed(1)}kg</h1>`;
+    document.getElementById("resuIntervalo").innerHTML = `<p>Intervalo ideal</p> <h1>${intervaloPeso.min.toFixed(1)} - ${intervaloPeso.max.toFixed(1)}</h1>`;
+}
+
+let alturainp = document.getElementById("altura");
+let alturaDigits = [];
+
+alturainp.addEventListener("beforeinput", function (e) {
+    // Se for backspace, remove o último dígito
+    if (e.inputType === "deleteContentBackward") {
+        alturaDigits.pop();
+        atualizarCampo();
+        e.preventDefault(); // impedir comportamento padrão
+    }
+
+    // Se não for dígito, ignorar
+    if (!/^\d$/.test(e.data)) return;
+
+    // Adiciona o novo dígito
+    alturaDigits.push(e.data);
+
+    // Remove o mais antigo se passar de 5 dígitos (limita pra não virar 10 metros)
+    if (alturaDigits.length > 5) alturaDigits.shift();
+
+    atualizarCampo();
+    e.preventDefault(); // impedir que o navegador escreva sozinho
+});
+
+function atualizarCampo() {
+    let raw = alturaDigits.join("");
+
+    // Garante no mínimo 3 dígitos (ex: "1" vira "001")
+    raw = raw.padStart(3, "0");
+
+    let inteiro = raw.slice(0, -2);
+    let decimal = raw.slice(-2);
+    let valorFinal = `${inteiro}.${decimal}`;
+
+    // Limite de 2.50
+    if (parseFloat(valorFinal) > 2.5) return;
+
+    alturainp.value = valorFinal;
+}
+const calculoIMC = function(event){
+
+    event.preventDefault()
+    altura = alturainp.value
+    let peso = document.getElementById("peso").value;
+    let resuimc = document.getElementById("resuIMC");
+    let resuclass = document.getElementById("resuClass");
+    let resupeso = document.getElementById("resuPeso");
+    let resuintervalo = document.getElementById("resuIntervalo");
+    let pesomin = 18.5 * (altura**2);
+    let pesomax = 24.9 * (altura**2);
+    let pesoideal = 21.75 * (altura**2);
+    let IMC =  peso / (altura**2);
+    resultado = document.getElementById("imcResultado");
+    resultado.style.display = "block";
+    
+    if(IMC < 18.5){
+        preencherResultado(IMC, "Magreza", pesoideal, {min: pesomin, max: pesomax});
+    }
+    else if(IMC >= 18.5 && IMC < 25){
+        resuimc.innerHTML = `<p>IMC</p> <h1>${IMC.toFixed(2)}kg/m²</h1>`;
+        resuclass.innerHTML = `<p>Classificação</p> <h1>Normal</h1>`;
+        resupeso.innerHTML = `<p>Peso ideal</p> <h1>${pesoideal.toFixed(1)}kg</h1>`;
+        resuintervalo.innerHTML = `<p>Intervalo ideal</p> <h1>${pesomin.toFixed(1)} - ${pesomax.toFixed(1)}</h1>`;
+    }
+    else if(IMC >= 25 && IMC < 30){
+       preencherResultado(IMC, "Sobrepeso", pesoideal, {min: pesomin, max: pesomax} );
+    }
+    else if(IMC >= 30 && IMC < 40){
+        preencherResultado(IMC, "Obesidade", pesoideal, {min: pesomin, max: pesomax} );
+    }
+    else if(IMC >= 40){
+        preencherResultado(IMC, "Obesidade grave", pesoideal, {min: pesomin, max: pesomax} );
+    }
+    else{
+        resuimc.innerHTML = `<p>IMC</p> <h1>${IMC.toFixed(2)}kg/m²</h1>`;
+        resuclass.innerHTML = `<p>Classificação</p> <h1>Indefinido</h1>`;
+        resupeso.innerHTML = `<p>Peso ideal</p> <h1>${pesoideal.toFixed(1)}kg</h1>`;
+        resuintervalo.innerHTML = `<p>Intervalo ideal</p> <h1>${pesomin.toFixed(1)} - ${pesomax.toFixed(1)}</h1>`;
+    }
+}
+document.getElementById("btnIMC").addEventListener("click", calculoIMC)
 
 </script>
 </body>

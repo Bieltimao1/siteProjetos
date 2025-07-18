@@ -27,3 +27,7 @@ header{
     padding: 0px 20px 0px 10px;
     text-shadow: 1px 1px 6px var(--CorPrincipal)  
 }
+
+#menuBtn:active{
+    transform: scale(0.95);
+}
