@@ -72,7 +72,7 @@
 
 button {
   padding: 10px 20px;
-  background-color: var(--corPrincipalVerde, #59edd7);
+  background-color: var(--CorPrincipal, #59edd7);
   color: white;
   border: none;
   border-radius: 5px;
@@ -84,7 +84,7 @@ button {
 
 button:hover {
  transform: scale(1.05);
-  background-color: #3bc3b0;
+  background-color: var(--CorPrincipalEscuro);
 }
 button:active {
   transform: scale(0.95);
@@ -107,12 +107,12 @@ border-collapse:collapse ;
   border: 1px solid #ddd;
 }
 .IMC-tabela thead {
-  background-color: var(--corPrincipalVerde, #59edd7); /* usa var se quiser */
+  background-color: var(--CorPrincipal, #59edd7); /* usa var se quiser */
   color: white;
   font-weight: bold;
 }
 .IMC-tabela th:hover {
-  background-color: #3bc3b0;
+  background-color: var(--CorPrincipalEscuro);
 }
 .IMC-tabela tbody tr:hover {
   background-color: #f9f9f9;
@@ -137,6 +137,7 @@ border-collapse:collapse ;
                     <input type="number" id="peso"  step="0.1" placeholder="Digite seu peso (kg)" required>
 
                     <button id="btnIMC" type="submit">Calcular IMC</button>
+                    <p id="falha"></p>
                 </form>
             </div>
             <div class="resultado" id="imcResultado" style="display: none;">
@@ -251,7 +252,27 @@ window.addEventListener("DOMContentLoaded",() => {
         .then(res => res.text())
         .then(headerconteudo => {
             document.getElementById("header-container").innerHTML = headerconteudo;
-    })
+
+                        
+            const botoesCor = document.querySelectorAll(".cores");
+
+            botoesCor.forEach(botao => {
+                botao.addEventListener("click", () => {
+                    // Pega a cor de fundo do botão clicado
+                    let cor = botao.dataset.cor || getComputedStyle(botao).backgroundColor;
+                    let corescura = botao.dataset.corescura;;
+
+                    // Aplica como cor principal
+                    document.documentElement.style.setProperty("--CorPrincipal", cor);
+                    document.documentElement.style.setProperty("--CorPrincipalEscuro", botao.dataset.corescura || corescura);
+
+                    // Salva no localStorage
+                    localStorage.setItem("corPrincipal", cor);
+                    localStorage.setItem("corPrincipalEscuro", corescura);
+                });
+
+            });
+        })
 
     fetch("Componentes/sidebar.html")
         .then(res => res.text())
@@ -357,12 +378,17 @@ const calculoIMC = function(event){
     let resuclass = document.getElementById("resuClass");
     let resupeso = document.getElementById("resuPeso");
     let resuintervalo = document.getElementById("resuIntervalo");
+    let falha = document.getElementById("falha")
     let pesomin = 18.5 * (altura**2);
     let pesomax = 24.9 * (altura**2);
     let pesoideal = 21.75 * (altura**2);
     let IMC =  peso / (altura**2);
     resultado = document.getElementById("imcResultado");
     resultado.style.display = "block";
+    if(isNaN(IMC) || IMC <= 0 || isNaN(peso) || peso <= 0 || isNaN(altura) || altura <= 0){
+
+       
+    }
     
     if(IMC < 18.5){
         preencherResultado(IMC, "Magreza", pesoideal, {min: pesomin, max: pesomax});
@@ -389,6 +415,21 @@ const calculoIMC = function(event){
         resuintervalo.innerHTML = `<p>Intervalo ideal</p> <h1>${pesomin.toFixed(1)} - ${pesomax.toFixed(1)}</h1>`;
     }
 }
+
+
+// Aplica a cor salva ao carregar a página
+window.addEventListener("DOMContentLoaded", () => {
+    const corSalva = localStorage.getItem("corPrincipal");
+    const corEscuraSalva = localStorage.getItem("corPrincipalEscuro");
+    
+    if (corSalva) {
+        document.documentElement.style.setProperty("--CorPrincipal", corSalva);
+    }
+    
+    if (corEscuraSalva) {
+        document.documentElement.style.setProperty("--CorPrincipalEscuro", corEscuraSalva);
+    }
+});
 document.getElementById("btnIMC").addEventListener("click", calculoIMC)
 
 </script>

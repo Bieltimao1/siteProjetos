@@ -140,7 +140,7 @@ footer {
   color: #ccc;
   padding: 40px 20px 20px;
   font-size: 0.95rem;
-  border-top: 3px solid rgb(89, 237, 215);
+  border-top: 3px solid var(--CorPrincipal);
 }
 .projetos {
   display: flex;
@@ -173,7 +173,7 @@ footer {
 .card a {
   display: inline-block;
   margin-top: 10px;
-  color: rgb(89, 237, 215);
+  color: var(--CorPrincipal);
   text-decoration: none;
   font-weight: 600;
 }

@@ -1,6 +1,8 @@
 :root{
-    --CorPrincipal: rgb(89, 237, 215);
-    --Corfundo:  white
+    --CorPrincipal: red;
+    --CorPrincipalEscuro: rgb(196, 3, 3);
+    --Corfundo:  white;
     --Corfundo2: #f9f9f9;
     --corluzsidebar:rgba(89, 237, 215, 0.5);
 }
+
