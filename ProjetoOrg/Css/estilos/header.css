@@ -21,16 +21,16 @@ header .cores{
     border: solid 2px white ;
 }
 header .cores#vermelho{
-    background-color: rgb(255, 57, 57);
+    background-color: red;
 }
 header .cores#azul{
-    background-color: rgb(108, 213, 255);
+    background-color: rgb(55, 208, 255);
 }
 header .cores#verde{
     background-color: rgb(89, 237, 215);
 }
 header .cores#roxo{
-    background-color: rgb(209, 30, 245);
+    background-color: rgb(224, 119, 245);
 }
 header .cores:hover{
     transform: scale(1.2);

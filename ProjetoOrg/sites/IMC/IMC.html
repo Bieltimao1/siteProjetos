@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../Css/servidor.css">
+    <title>Document</title>
+<style>
+    main{
+        height: auto;;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 60px 40px;
+        width: 50vw;
+        margin: 0px 13% 100px 13%;
+       
+    }
+    main h1{
+        margin: 30px 0;
+        font-size: 2rem;
+    }
+    #IMC{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 400px;
+        margin: 20px auto 50px auto;
+        padding: 20px;
+        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+    }  
+     #IMC h2{
+        margin-bottom: 25px;
+     }
+    
+     #resultados{
+        display: flex;
+        max-width: 600px;
+        flex-wrap: wrap;
+        margin: auto;
+        gap: 5px
+        ;
+    }
+   .resultadosIMC {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;   /* Centraliza verticalmente */
+    align-items: center;       /* Centraliza horizontalmente */
+    height: 150px;
+    width: 250px;
+    text-align: center;        /* Centraliza o texto */
+    margin: 0;
+    border-right:2px dotted black ;
+}
+.resultadosIMC p{
+    font-size: 0.95rem;
+}
+.resultadosIMC h1{
+    margin: 5px 0 0 0 ;
+}
+
+    input[type="number"] {
+  padding: 10px;
+  width: 100%;
+  margin: 8px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: var(--CorPrincipal, #59edd7);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 15px;
+  font-weight: bold;
+  transition: ease 0.2s;
+}
+
+button:hover {
+ transform: scale(1.05);
+  background-color: var(--CorPrincipalEscuro);
+}
+button:active {
+  transform: scale(0.95);
+}
+.informacoes h2{
+    margin-bottom: 25px;
+}
+.informacoes> p{
+    margin-bottom: 15px;
+
+}
+.IMC-tabela{
+margin: 40px auto;;
+width: 100%;
+border-collapse:collapse ;
+}
+.IMC-tabela th, .IMC-tabela td {
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #ddd;
+}
+.IMC-tabela thead {
+  background-color: var(--CorPrincipal, #59edd7); /* usa var se quiser */
+  color: white;
+  font-weight: bold;
+}
+.IMC-tabela th:hover {
+  background-color: var(--CorPrincipalEscuro);
+}
+.IMC-tabela tbody tr:hover {
+  background-color: #f9f9f9;
+}
+
+</style>
+</head>
+<body>
+<div id="sidebar-container"></div>
+<div id="header-container"></div>
+<div id="main-conteudo">
+    <main>
+        <section>
+            <h1>Calculadora de IMC</h1>
+            <div class="calculadora" id="IMC">
+                <h2>Calcule seu IMC</h2>
+                <form id="imcForm">
+                    <label for="altura">Altura (m)</label>
+                    <input type="number" id="altura" placeholder="Digite sua altura (m)" step="0.01" required>
+
+                    <label for="peso">Peso (kg)</label><br>
+                    <input type="number" id="peso"  step="0.1" placeholder="Digite seu peso (kg)" required>
+
+                    <button id="btnIMC" type="submit">Calcular IMC</button>
+                    <p id="falha"></p>
+                </form>
+            </div>
+            <div class="resultado" id="imcResultado" style="display: none;">
+                <h2>Resultado</h2>
+                <div id="resultados">
+                    <div id="resuIMC" class="resultadosIMC"><p></p><h1></h1></div>
+                    <div id="resuClass" class="resultadosIMC"><p></p></div>
+                    <div id="resuPeso" class="resultadosIMC"></div>
+                    <div id="resuIntervalo" class="resultadosIMC"></div>
+
+
+
+                </div>
+            </div>
+            <section class="informacoes" id="imcInformacoes">
+
+                <h2>Calculadora de IMC</h2>
+                <p>O IMC (Índice de Massa Corporal) é um parâmetro utilizado pela Organização Mundial
+                de Saúde para avaliar se o peso está adequado à altura de uma pessoa. O IMC é calculado
+                dividindo o peso (em kg) pela altura ao quadrado (em m). O resultado é dado em kg/m2 e
+                pode ser interpretado de acordo com a seguinte tabela:</p>
+                
+                <table class="IMC-tabela">
+                    <thead>
+                        <tr>
+                            <th>IMC</th>
+
+                        
+                            <th>Classificação</th>
+
+                       
+                             <th>Obesidade grau</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Menor que 18,5</td>
+                        <td>Magreza</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>18,5 a 24,9</td>
+                        <td>Normal</td>
+                        <td>0</td>
+                    </tr>
+                    <tr>
+                        <td>25 a 29,9</td>
+                        <td>Sobrepeso</td>
+                        <td>I</td>
+                    </tr>
+                    <tr>
+                        <td>30 a 39,9</td>
+                        <td>Obesidade</td>
+                        <td>II</td>
+                    </tr>
+                    <tr>
+                        <td>Maior que 40</td>
+                        <td>Obesidade grave</td>
+                        <td>III</td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <p>O IMC é uma ferramenta simples e rápida para estimar o estado nutricional de uma pessoa,
+                mas não leva em conta outros fatores importantes, como a idade, o sexo, a composição corporal,
+                a distribuição de gordura e o histórico de saúde. Por isso, o IMC deve ser usado apenas como
+                um indicador inicial e não como um diagnóstico definitivo. Para uma avaliação mais completa e 
+                individualizada, é recomendado consultar um médico ou um nutricionista.</p>
+
+                <h1>Perguntas frequentes sobre o IMC</h1>
+
+                <h2>Qual é o peso ideal para a minha altura?</h2>
+
+                <p>Não existe um peso ideal único para cada altura, pois o peso depende também de outros fatores,
+                como a idade, o sexo, a composição corporal e o nível de atividade física. No entanto, pode-se
+                usar o IMC como uma referência para saber se o peso está dentro de um intervalo considerado
+                saudável. De acordo com a OMS, o intervalo de IMC normal para adultos é entre 18,5 e 24,9 kg/m2.
+                Para saber qual é o intervalo de peso correspondente a esse IMC para cada altura, basta
+                multiplicar a altura ao quadrado pelo valor mínimo e máximo do IMC. Por exemplo, para
+                uma pessoa que mede 1,75 m, o intervalo de peso normal seria: (1,75 x 1,75) x 18,5 = 56,77 kg
+                e (1,75 x 1,75) x 24,9 = 76,31 kg.</p>
+                
+                <h2>O que fazer se o meu IMC estiver fora do normal?</h2>
+
+                <p>Se o seu IMC estiver abaixo de 18,5 kg/m2, isso pode indicar que você está com magreza, 
+                o que pode trazer riscos para a sua saúde, como anemia, osteoporose, infecções e fraqueza. 
+                Nesse caso, é importante procurar um médico ou um nutricionista para investigar as possíveis
+                causas da perda de peso e receber orientações para aumentar o seu consumo de calorias e 
+                nutrientes de forma saudável.</p>
+
+                <p>Se o seu IMC estiver acima de 24,9 kg/m2, isso pode indicar que você está com sobrepeso ou obesidade, 
+                o que também pode trazer riscos para a sua saúde, como diabetes, hipertensão, colesterol alto, doenças 
+                cardiovasculares e articulares. Nesse caso, é importante procurar um médico ou um nutricionista para 
+                receber orientações para reduzir o seu consumo de calorias e gorduras e aumentar o seu nível de atividade 
+                física de forma gradual e segura.</p>
+
+            </section>
+        </section>
+
+    </main>
+</div>
+<div id="footer-container"></div>
+
+
+
+
+
+<script type="module" src="../../Javascript/conjunto.js"></script>
+<script type="module" src="imc.js"></script>
+</body>
+</html>
