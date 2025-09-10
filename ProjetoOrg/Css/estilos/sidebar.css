@@ -16,7 +16,7 @@
     left: 0;
     box-shadow: 20px 0 100px var(--CorPrincipal);
     border-right: solid 2px var(--CorPrincipal);
-    border-top: solid 2px var(--CorPrincipal);
+
    }
 
 .sidebar ul{

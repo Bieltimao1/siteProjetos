@@ -5,6 +5,7 @@ footer {
   padding: 40px 20px 20px;
   font-size: 0.95rem;
   border-top: 3px solid var(--CorPrincipal);
+  margin-top: 5px;
 }
 
 .footer-container {

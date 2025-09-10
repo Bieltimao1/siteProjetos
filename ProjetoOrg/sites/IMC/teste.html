@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Flexbox Align</title>
+  <style>
+    .container {
+      display: flex;
+      flex-wrap: wrap; /* permite várias linhas */
+      width: 300px;
+      height: 200px;
+      border: 2px solid black;
+      margin: 20px;
+    }
+
+    .item {
+      width: 30px;
+      height: 30px;
+      background: lightblue;
+      margin: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    }
+
+    /* exemplos diferentes */
+    .align-items {
+      align-items: center;  /* alinha os itens dentro de cada linha */
+    }
+
+    .align-content {
+      align-content: space-between; /* controla o espaço ENTRE as linhas */
+    }
+  </style>
+</head>
+<body>
+  <h2>align-items: center</h2>
+  <div class="container align-items">
+    <div class="item">1</div>
+    <div class="item">2</div>
+    <div class="item">3</div>
+    <div class="item">4</div>
+    <div class="item">5</div>
+    <div class="item">6</div>
+  </div>
+
+  <h2>align-content: space-between</h2>
+  <div class="container align-content">
+    <div class="item">1</div>
+    <div class="item">2</div>
+    <div class="item">3</div>
+    <div class="item">4</div>
+    <div class="item">5</div>
+    <div class="item">6</div>
+  </div>
+</body>
+</html>
