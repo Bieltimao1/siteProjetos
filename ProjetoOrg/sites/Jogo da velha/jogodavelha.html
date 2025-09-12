@@ -57,8 +57,40 @@
         }
         .celulas-vencedora{
             background-color: var(--CorPrincipal);
-            color: rgb(0, 0, 0);
+            color: white;
+            transform: scale(1.05);
+            box-shadow: 0px 0px 15px var(--CorPrincipal);
         }
+        .celulas-empate{
+            background-color: grey;
+            cursor: not-allowed;
+        }
+        .celulas.celulas-empate:hover {
+            transform: none;
+            cursor: not-allowed;
+            box-shadow: -10px 10px 15px rgb(221, 221, 221);
+        }
+        .buttonfeito{
+            background-color: black;
+            padding: 5px;
+            color: var(--CorPrincipal);
+            border: 1px solid var(--CorPrincipal);
+            transition: 0.3s ease;
+        }
+        .buttonfeito:hover{
+            transform: scale(1.1);
+            cursor: pointer;
+        }
+        .buttonfeito:active{
+            transform: scale(0.95);
+        }
+        .btnbot{
+            position: relative;
+            width: 60px;
+            height: 30px;
+            background-color: antiquewhite;
+        }
+        
     </style>
 </head>
 <body>
@@ -67,6 +99,11 @@
 <div id="header-container"></div>
 <div id="conteudovelha">
     <main>
+        <button id="reset" class="buttonfeito">reset</button>
+        <label class="btnbot"><input type="radio" value="0" name="nivel"></label>
+        <label class="btnbot"><input type="radio" value="1" name="nivel"></label>
+        <label class="btnbot"><input type="radio" value="2" name="nivel"></label>
+        <label class="btnbot"><input type="radio" value="3" name="nivel"></label>
         <div id="container-velha">
             <div class="celulas" id="celulas-0"></div>
             <div class="celulas" id="celulas-1"></div>
@@ -78,14 +115,14 @@
             <div class="celulas" id="celulas-7"></div>
             <div class="celulas" id="celulas-8"></div>
         </div>
-        <button>reset</button>
+        
     </main>
 </div>
 <div id="footer-container"></div>
 <script type="module" src="../../Javascript/conjunto.js"></script>
 <script type="module" src="jogodavelha.js"></script>
 <script>
-    let celulas = document.querySelectorAll(".celulas");
+    const celulas = document.querySelectorAll(".celulas");
     let playerAtual = "X";
     let fim = false;
     let jogadasplayerO = [];
@@ -94,16 +131,34 @@
     let nivel2 = false;
     let nivel3 = true;
 
-    let opostos = {
+    const opostos = {
         0:8,
         8:0,
         2:6,
         6:2
     }
+    const defesalado = {
+        1:[0,2,4,7],
+        3: [0,4,5,6],
+        5: [2,4,3,8],
+        7: [6,8,4,1]
+    }
 
     const trocarJogador = function(){
         playerAtual = (playerAtual === "X") ? "O" : "X";
     }
+    const reset = document.getElementById("reset");
+    reset.addEventListener("click", ()=>{
+        celulas.forEach((celula) => {
+            celula.textContent = "";
+            celula.classList.remove("celulas-vencedora");
+            celula.classList.remove("celulas-empate")
+        })
+        playerAtual = "X"
+    jogadasplayerO = [];
+    jogadasplayerX = [];
+    fim = false;
+    })
 
     celulas.forEach((celula) =>{
         celula.addEventListener("click", () => {
@@ -114,32 +169,38 @@
                     let index = [...celulas].indexOf(celula);
                     jogadasplayerX.push(index);
                 }
+
                 if(playerAtual === "O"){
                     let index = [...celulas].indexOf(celula);
                     jogadasplayerO.push(index);
                 }
+
                 console.log(`o player x tem ${jogadasplayerX}     o player o tem ${jogadasplayerO} celulas lenght = ${[...celulas].filter((celula) => { return celula.textContent !== ""}).length}`)
+                
                 let vencedor = verificarVencedor();
                 
-
                 let cheio = [...celulas].every(celula => celula.textContent !== "");;
 
                 if(cheio){
                     fim = true;
                     alert("fim do jogo, empate!");
+                    celulas.forEach((celula) => {celula.classList.add("celulas-empate")})
                 };
                 
                 if(vencedor){
                     alert(`O vencedor foi o jogador ${vencedor}! `);
                     fim = true;
                 };
+                
                 trocarJogador();
 
                 
                 if (playerAtual === "O"){
                     setTimeout(() => {
+                        fim = false
                         bot();}, 300);
                 };
+                
             };
         });
     })
@@ -186,6 +247,16 @@
 
                 console.log("2° jogada, jogar no lado")
             }
+
+            else if(jogadasplayerX.length === 1 && jogadasplayerX[0] in defesalado){
+                let indiceVazio = defesalado[jogadasplayerX[0]].filter((ind) => { return celulas[ind].textContent === ""});
+                celulas[indiceVazio[Math.floor(Math.random() * indiceVazio.length)]].click();
+                console.log("O bot defendeu estrategia iniciada pelos lado");
+            }
+            else if(jogadasplayerX.length === 1 && jogadasplayerX[0] === 4){
+                const cantos = [0, 2, 6, 8];
+                celulas[cantos[Math.floor(Math.random()*cantos.length)]].click();
+            }
             else if(verificarfaltaum("O") !== undefined){
                 ataquefaltaum();
                 console.log("entrou no ataque");
@@ -202,7 +273,7 @@
         }
     }
 
-    let combinacoesVitoria = [
+    const combinacoesVitoria = [
         [0,1,2], [3,4,5], [6,7,8],
         [0,3,6], [1,4,7], [2,5,8],
         [0,4,8], [2,4,6]
@@ -210,7 +281,7 @@
 
     const verificarVencedor = function(){
         for( let combinacao of combinacoesVitoria){
-            [a,b,c] = combinacao;
+            let [a,b,c] = combinacao;
             if( 
                 celulas[a].textContent !== "" &&
                 celulas[b].textContent === celulas[a].textContent && 
