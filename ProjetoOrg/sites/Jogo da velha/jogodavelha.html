@@ -26,12 +26,44 @@
             border-radius: 5%;
             box-shadow: -10px 10px 15px rgb(221, 221, 221);        
         }
+        #section1{
+            display: flex;
+            flex-direction: row;;
+            gap: 200px;
+
+        }
+        #meio{
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: -250px;
+            
+        }
+        #esquerda{
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
         #container-velha{
             display: grid;
             gap: 5px;
             grid-template-rows: repeat(3, 120px);
             grid-template-columns: repeat(3, 120px);
             width: 370px;
+            margin-top: 40px
+        }
+        #titulo{
+            display: flex;
+            width: 100%;
+            align-items: center;
+            justify-items: center;
+        }
+        
+        .nivel-container{
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 20px;
         }
         .celulas{
             display: flex;
@@ -72,25 +104,112 @@
         }
         .buttonfeito{
             background-color: black;
-            padding: 5px;
+            padding: 10px;
+            font-size: 14pt;
             color: var(--CorPrincipal);
-            border: 1px solid var(--CorPrincipal);
+            border: 2px solid var(--CorPrincipal);
+            box-shadow: -5px 5px 10px rgb(221, 221, 221);
             transition: 0.3s ease;
         }
         .buttonfeito:hover{
-            transform: scale(1.1);
+            transform: scale(1.05);
+            background-color: var(--CorPrincipal);
             cursor: pointer;
+            color: black;
+            border: 2px solid var(--CorPrincipal);
+            box-shadow: 0px 0px 15px var(--CorPrincipal);
         }
         .buttonfeito:active{
             transform: scale(0.95);
+            background-color: var(--CorPrincipalEscuro);
+            color: white;
         }
         .btnbot{
-            position: relative;
-            width: 60px;
-            height: 30px;
-            background-color: antiquewhite;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+        .btnbot p{
+            margin-bottom: 6px;
+            font-weight: bold;
+            color: black;
+        }
+        .slider::before{
+            content: "";
+            background-color: var(--CorPrincipal);
+            height: 20px;
+            width: 20px;;
+            left: 4px;
+            top:4px;
+            border-radius: 50%;
+            position: absolute;
+            transition: 0.3s ease;
+            border: black solid 1px;
+        }
+
+        input:checked + .slider{
+            background-color: var(--CorPrincipal);
+            box-shadow: 0px 0px 10px var(--CorPrincipal);
+        }
+
+        input:checked + .slider::before {
+         transform: translateX(26px);
         }
         
+        .btnbot input{
+            position: absolute;
+            width: 0;
+            height: 0;
+            opacity: 0;
+            
+        }
+
+        .slider{
+            border: solid 1px black;
+            position: relative;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            background-color: #ccc;
+            border-radius: 34px;
+            cursor: pointer;
+            width: 60px;
+            height: 30px;
+        }
+        #placar{
+            display: flex;
+            padding: 15px 5px 5px 25px;
+            flex-direction: column;
+            background-color: black;
+            border: 3px solid var(--CorPrincipal);
+            color: var(--CorPrincipal);
+            width: 300px;
+            height: 300px;
+            box-shadow: -10px 10px 15px rgb(221, 221, 221);
+        }
+        #meio h2{
+            margin: 0px auto;
+        }
+        #placar h1{
+            margin: 0px auto;
+            margin-bottom: 10px;
+        }
+
+        #container-placar{
+            display: flex;
+            flex-direction: row;
+            margin-top: 15px;
+        }
+        #player1{
+            border-right: 2px solid var(--CorPrincipal);
+            padding-right: 15px;
+        }
+        #player2{
+            padding-left: 15px;
+        }
+
     </style>
 </head>
 <body>
@@ -99,37 +218,77 @@
 <div id="header-container"></div>
 <div id="conteudovelha">
     <main>
-        <button id="reset" class="buttonfeito">reset</button>
-        <label class="btnbot"><input type="radio" value="0" name="nivel"></label>
-        <label class="btnbot"><input type="radio" value="1" name="nivel"></label>
-        <label class="btnbot"><input type="radio" value="2" name="nivel"></label>
-        <label class="btnbot"><input type="radio" value="3" name="nivel"></label>
-        <div id="container-velha">
-            <div class="celulas" id="celulas-0"></div>
-            <div class="celulas" id="celulas-1"></div>
-            <div class="celulas" id="celulas-2"></div>
-            <div class="celulas" id="celulas-3"></div>
-            <div class="celulas" id="celulas-4"></div>
-            <div class="celulas" id="celulas-5"></div>
-            <div class="celulas" id="celulas-6"></div>
-            <div class="celulas" id="celulas-7"></div>
-            <div class="celulas" id="celulas-8"></div>
-        </div>
-        
+        <section id="section1">
+
+            <div id="esquerda">
+                <button id="comecar" class="buttonfeito" style="font-size: 18pt;">Começar</button>
+                <button id="reset" class="buttonfeito" style="display: none;">Resetar</button>
+                <button id="fim" class="buttonfeito"style="display: none;">Fim</button>
+            </div>
+
+
+            <div id="meio">
+                <div id="titulo"><h2>Escolha o nivel do BOT</h2></div>
+
+                <div class="nivel-container">
+                    <label class="btnbot"><p>Off</p><input type="radio" value="0" name="nivel"><span class="slider"></span></label>
+                    <label class="btnbot"><p>Nivel 1</p><input type="radio" value="1" name="nivel"><span class="slider"></span></label>
+                    <label class="btnbot"><p>Nivel 2</p><input type="radio" value="2" name="nivel"><span class="slider"></span></label>
+                    <label class="btnbot"><p>Nivel 3</p><input type="radio" value="3" name="nivel"><span class="slider"></span></label>
+                </div>
+
+                <div id="container-velha">
+                    <div class="celulas" id="celulas-0"></div>
+                    <div class="celulas" id="celulas-1"></div>
+                    <div class="celulas" id="celulas-2"></div>
+                    <div class="celulas" id="celulas-3"></div>
+                    <div class="celulas" id="celulas-4"></div>
+                    <div class="celulas" id="celulas-5"></div>
+                    <div class="celulas" id="celulas-6"></div>
+                    <div class="celulas" id="celulas-7"></div>
+                    <div class="celulas" id="celulas-8"></div>
+                </div>
+
+            </div>
+
+
+            <div id="direita">
+                <div id="placar" style="display: none;">
+                    <h1>Placar</h1> 
+                    <p>Partidas jogadas: 0</p >
+                    <p>Empates</p>
+                    <div id="container-placar">
+
+                        <div class="player" id="player1"><h2>Player X</h2><p>Vitorias: 0</p> <p>Perdas: 0</p></div>
+                        <div class="player" id="player2"><h2>Player O</h2><p>Vitorias: 0</p> <p>Perdas: 0</p></div>
+
+                    </div>
+                </div>
+            </div>
+
+
+        </section>
     </main>
 </div>
+
+
 <div id="footer-container"></div>
+
+
 <script type="module" src="../../Javascript/conjunto.js"></script>
 <script type="module" src="jogodavelha.js"></script>
 <script>
+    window.addEventListener("load", () => {
+        celulas.forEach((celula) => {celula.classList.add("celulas-empate")})
+    })
     const celulas = document.querySelectorAll(".celulas");
     let playerAtual = "X";
-    let fim = false;
+    let fim = true;
     let jogadasplayerO = [];
     let jogadasplayerX = [];
     let nivel1 = false;
     let nivel2 = false;
-    let nivel3 = true;
+    let nivel3 = false;
 
     const opostos = {
         0:8,
@@ -159,6 +318,7 @@
     jogadasplayerX = [];
     fim = false;
     })
+
 
     celulas.forEach((celula) =>{
         celula.addEventListener("click", () => {
@@ -320,6 +480,38 @@
        celulas[verificarfaltaum("O")].click()
     }
 
+    const comecar = document.getElementById("comecar");
+    const zerar = document.getElementById("fim")
+    const placar = document.getElementById("placar")
+    comecar.addEventListener("click", () => {
+
+        celulas.forEach((celula) => { celula.classList.remove("celulas-empate")});
+        reset.style.display = "block";
+        zerar.style.display = "block";
+        comecar.style.display = "none";
+        placar.style.display = "block"
+        fim = false;
+
+        const selecionado = document.querySelector('input[name="nivel"]:checked');
+        switch(selecionado.value){
+
+            case "1":
+                nivel1 = true;
+                break
+            
+            case "2":
+                nivel2 = true;
+                break
+            
+            case "3":
+                nivel3 = true;
+                break
+    
+        }
+        
+    })
+
+    
 
 
 </script>
